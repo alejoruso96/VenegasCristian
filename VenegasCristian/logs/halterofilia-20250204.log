@@ -1,0 +1,909 @@
+2025-02-04 05:05:06.835 -05:00 [WRN] No store type was specified for the decimal property 'Peso' on entity type 'Intento'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-02-04 05:05:08.768 -05:00 [WRN] The ASP.NET Core developer certificate is not trusted. For information about trusting the ASP.NET Core developer certificate, see https://aka.ms/aspnet/https-trust-dev-cert.
+2025-02-04 05:06:28.128 -05:00 [ERR] Error al obtener intentos por deportista
+System.InvalidOperationException: The LINQ expression 'DbSet<Intento>()
+    .Join(
+        inner: DbSet<Deportista>(), 
+        outerKeySelector: i => EF.Property<int?>(i, "DeportistaId"), 
+        innerKeySelector: d => EF.Property<int?>(d, "DeportistaId"), 
+        resultSelector: (o, i) => new TransparentIdentifier<Intento, Deportista>(
+            Outer = o, 
+            Inner = i
+        ))
+    .Join(
+        inner: DbSet<Pais>(), 
+        outerKeySelector: i => EF.Property<int?>(i.Inner, "PaisId"), 
+        innerKeySelector: p => EF.Property<int?>(p, "PaisId"), 
+        resultSelector: (o, i) => new TransparentIdentifier<TransparentIdentifier<Intento, Deportista>, Pais>(
+            Outer = o, 
+            Inner = i
+        ))
+    .Join(
+        inner: DbSet<Modalidad>(), 
+        outerKeySelector: i => EF.Property<int?>(i.Outer.Outer, "ModalidadId"), 
+        innerKeySelector: m => EF.Property<int?>(m, "ModalidadId"), 
+        resultSelector: (o, i) => new TransparentIdentifier<TransparentIdentifier<TransparentIdentifier<Intento, Deportista>, Pais>, Modalidad>(
+            Outer = o, 
+            Inner = i
+        ))
+    .GroupBy(i => new { 
+        Nombre = i.Outer.Outer.Inner.Nombre, 
+        Codigo = i.Outer.Inner.Codigo, 
+        Intentos = MaterializeCollectionNavigation(
+            Navigation: Modalidad.Intentos,
+            Subquery: DbSet<Intento>()
+                .Where(i0 => EF.Property<int?>(i.Inner, "ModalidadId") != null && object.Equals(
+                    objA: (object)EF.Property<int?>(i.Inner, "ModalidadId"), 
+                    objB: (object)EF.Property<int?>(i0, "ModalidadId"))))
+     })' could not be translated. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https://go.microsoft.com/fwlink/?linkid=2101038 for more information.
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutorExpression[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass11_0`1.<ExecuteCore>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteCore[TResult](Expression query, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteAsync[TResult](Expression query, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.ExecuteAsync[TResult](Expression expression, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1.GetAsyncEnumerator(CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.ConfiguredCancelableAsyncEnumerable`1.GetAsyncEnumerator()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at VenegasCristian.Service.HalterofiliaService.ObtenerIntentosPorDeportista() in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Service\HalterofiliaService.cs:line 23
+2025-02-04 05:06:28.228 -05:00 [ERR] Error al obtener intentos por deportista
+System.InvalidOperationException: The LINQ expression 'DbSet<Intento>()
+    .Join(
+        inner: DbSet<Deportista>(), 
+        outerKeySelector: i => EF.Property<int?>(i, "DeportistaId"), 
+        innerKeySelector: d => EF.Property<int?>(d, "DeportistaId"), 
+        resultSelector: (o, i) => new TransparentIdentifier<Intento, Deportista>(
+            Outer = o, 
+            Inner = i
+        ))
+    .Join(
+        inner: DbSet<Pais>(), 
+        outerKeySelector: i => EF.Property<int?>(i.Inner, "PaisId"), 
+        innerKeySelector: p => EF.Property<int?>(p, "PaisId"), 
+        resultSelector: (o, i) => new TransparentIdentifier<TransparentIdentifier<Intento, Deportista>, Pais>(
+            Outer = o, 
+            Inner = i
+        ))
+    .Join(
+        inner: DbSet<Modalidad>(), 
+        outerKeySelector: i => EF.Property<int?>(i.Outer.Outer, "ModalidadId"), 
+        innerKeySelector: m => EF.Property<int?>(m, "ModalidadId"), 
+        resultSelector: (o, i) => new TransparentIdentifier<TransparentIdentifier<TransparentIdentifier<Intento, Deportista>, Pais>, Modalidad>(
+            Outer = o, 
+            Inner = i
+        ))
+    .GroupBy(i => new { 
+        Nombre = i.Outer.Outer.Inner.Nombre, 
+        Codigo = i.Outer.Inner.Codigo, 
+        Intentos = MaterializeCollectionNavigation(
+            Navigation: Modalidad.Intentos,
+            Subquery: DbSet<Intento>()
+                .Where(i0 => EF.Property<int?>(i.Inner, "ModalidadId") != null && object.Equals(
+                    objA: (object)EF.Property<int?>(i.Inner, "ModalidadId"), 
+                    objB: (object)EF.Property<int?>(i0, "ModalidadId"))))
+     })' could not be translated. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https://go.microsoft.com/fwlink/?linkid=2101038 for more information.
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutorExpression[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass11_0`1.<ExecuteCore>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteCore[TResult](Expression query, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteAsync[TResult](Expression query, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.ExecuteAsync[TResult](Expression expression, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1.GetAsyncEnumerator(CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.ConfiguredCancelableAsyncEnumerable`1.GetAsyncEnumerator()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at VenegasCristian.Service.HalterofiliaService.ObtenerIntentosPorDeportista() in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Service\HalterofiliaService.cs:line 23
+   at VenegasCristian.Controllers.HalterofiliaController.ObtenerIntentosPorDeportista() in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Controllers\HalterofiliaController.cs:line 42
+2025-02-04 05:08:52.897 -05:00 [ERR] Error al obtener intentos por deportista
+System.InvalidOperationException: The LINQ expression 'DbSet<Intento>()
+    .Join(
+        inner: DbSet<Deportista>(), 
+        outerKeySelector: i => EF.Property<int?>(i, "DeportistaId"), 
+        innerKeySelector: d => EF.Property<int?>(d, "DeportistaId"), 
+        resultSelector: (o, i) => new TransparentIdentifier<Intento, Deportista>(
+            Outer = o, 
+            Inner = i
+        ))
+    .Join(
+        inner: DbSet<Pais>(), 
+        outerKeySelector: i => EF.Property<int?>(i.Inner, "PaisId"), 
+        innerKeySelector: p => EF.Property<int?>(p, "PaisId"), 
+        resultSelector: (o, i) => new TransparentIdentifier<TransparentIdentifier<Intento, Deportista>, Pais>(
+            Outer = o, 
+            Inner = i
+        ))
+    .Join(
+        inner: DbSet<Modalidad>(), 
+        outerKeySelector: i => EF.Property<int?>(i.Outer.Outer, "ModalidadId"), 
+        innerKeySelector: m => EF.Property<int?>(m, "ModalidadId"), 
+        resultSelector: (o, i) => new TransparentIdentifier<TransparentIdentifier<TransparentIdentifier<Intento, Deportista>, Pais>, Modalidad>(
+            Outer = o, 
+            Inner = i
+        ))
+    .GroupBy(i => new { 
+        Nombre = i.Outer.Outer.Inner.Nombre, 
+        Codigo = i.Outer.Inner.Codigo, 
+        Intentos = MaterializeCollectionNavigation(
+            Navigation: Modalidad.Intentos,
+            Subquery: DbSet<Intento>()
+                .Where(i0 => EF.Property<int?>(i.Inner, "ModalidadId") != null && object.Equals(
+                    objA: (object)EF.Property<int?>(i.Inner, "ModalidadId"), 
+                    objB: (object)EF.Property<int?>(i0, "ModalidadId"))))
+     })' could not be translated. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https://go.microsoft.com/fwlink/?linkid=2101038 for more information.
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutorExpression[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass11_0`1.<ExecuteCore>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteCore[TResult](Expression query, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteAsync[TResult](Expression query, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.ExecuteAsync[TResult](Expression expression, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1.GetAsyncEnumerator(CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.ConfiguredCancelableAsyncEnumerable`1.GetAsyncEnumerator()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at VenegasCristian.Service.HalterofiliaService.ObtenerIntentosPorDeportista() in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Service\HalterofiliaService.cs:line 23
+2025-02-04 05:09:06.862 -05:00 [ERR] Error al obtener intentos por deportista
+System.InvalidOperationException: The LINQ expression 'DbSet<Intento>()
+    .Join(
+        inner: DbSet<Deportista>(), 
+        outerKeySelector: i => EF.Property<int?>(i, "DeportistaId"), 
+        innerKeySelector: d => EF.Property<int?>(d, "DeportistaId"), 
+        resultSelector: (o, i) => new TransparentIdentifier<Intento, Deportista>(
+            Outer = o, 
+            Inner = i
+        ))
+    .Join(
+        inner: DbSet<Pais>(), 
+        outerKeySelector: i => EF.Property<int?>(i.Inner, "PaisId"), 
+        innerKeySelector: p => EF.Property<int?>(p, "PaisId"), 
+        resultSelector: (o, i) => new TransparentIdentifier<TransparentIdentifier<Intento, Deportista>, Pais>(
+            Outer = o, 
+            Inner = i
+        ))
+    .Join(
+        inner: DbSet<Modalidad>(), 
+        outerKeySelector: i => EF.Property<int?>(i.Outer.Outer, "ModalidadId"), 
+        innerKeySelector: m => EF.Property<int?>(m, "ModalidadId"), 
+        resultSelector: (o, i) => new TransparentIdentifier<TransparentIdentifier<TransparentIdentifier<Intento, Deportista>, Pais>, Modalidad>(
+            Outer = o, 
+            Inner = i
+        ))
+    .GroupBy(i => new { 
+        Nombre = i.Outer.Outer.Inner.Nombre, 
+        Codigo = i.Outer.Inner.Codigo, 
+        Intentos = MaterializeCollectionNavigation(
+            Navigation: Modalidad.Intentos,
+            Subquery: DbSet<Intento>()
+                .Where(i0 => EF.Property<int?>(i.Inner, "ModalidadId") != null && object.Equals(
+                    objA: (object)EF.Property<int?>(i.Inner, "ModalidadId"), 
+                    objB: (object)EF.Property<int?>(i0, "ModalidadId"))))
+     })' could not be translated. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https://go.microsoft.com/fwlink/?linkid=2101038 for more information.
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutorExpression[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass11_0`1.<ExecuteCore>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteCore[TResult](Expression query, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteAsync[TResult](Expression query, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.ExecuteAsync[TResult](Expression expression, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1.GetAsyncEnumerator(CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.ConfiguredCancelableAsyncEnumerable`1.GetAsyncEnumerator()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at VenegasCristian.Service.HalterofiliaService.ObtenerIntentosPorDeportista() in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Service\HalterofiliaService.cs:line 23
+   at VenegasCristian.Controllers.HalterofiliaController.ObtenerIntentosPorDeportista() in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Controllers\HalterofiliaController.cs:line 42
+2025-02-04 05:16:43.530 -05:00 [WRN] No store type was specified for the decimal property 'Peso' on entity type 'Intento'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-02-04 05:16:45.092 -05:00 [WRN] The ASP.NET Core developer certificate is not trusted. For information about trusting the ASP.NET Core developer certificate, see https://aka.ms/aspnet/https-trust-dev-cert.
+2025-02-04 05:17:02.900 -05:00 [ERR] Failed executing DbCommand (27ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Nombre] AS [Deportista], [p].[Codigo] AS [Pais], COUNT(*) AS [NumeroIntentos]
+FROM [Intentos] AS [i]
+INNER JOIN [Deportistas] AS [d] ON [i].[DeportistaId] = [d].[DeportistaId]
+INNER JOIN [Paises] AS [p] ON [d].[PaisId] = [p].[PaisId]
+INNER JOIN [Modalidades] AS [m] ON [i].[ModalidadId] = [m].[ModalidadId]
+GROUP BY [d].[Nombre], [p].[Codigo], [m].[NombreIntento]
+ORDER BY [d].[Nombre]
+2025-02-04 05:17:02.931 -05:00 [ERR] An exception occurred while iterating over the results of a query for context type 'VenegasCristian.Data.HalterofiliaDbContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:a209db55-ef0d-4061-a035-a20ac17be94a
+Error Number:207,State:1,Class:16
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:a209db55-ef0d-4061-a035-a20ac17be94a
+Error Number:207,State:1,Class:16
+2025-02-04 05:17:02.989 -05:00 [ERR] Error al obtener intentos por deportista
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at VenegasCristian.Service.HalterofiliaService.ObtenerIntentosPorDeportista() in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Service\HalterofiliaService.cs:line 23
+ClientConnectionId:a209db55-ef0d-4061-a035-a20ac17be94a
+Error Number:207,State:1,Class:16
+2025-02-04 05:17:03.071 -05:00 [ERR] Error al obtener intentos por deportista
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at VenegasCristian.Service.HalterofiliaService.ObtenerIntentosPorDeportista() in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Service\HalterofiliaService.cs:line 23
+   at VenegasCristian.Controllers.HalterofiliaController.ObtenerIntentosPorDeportista() in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Controllers\HalterofiliaController.cs:line 42
+ClientConnectionId:a209db55-ef0d-4061-a035-a20ac17be94a
+Error Number:207,State:1,Class:16
+2025-02-04 05:27:36.804 -05:00 [WRN] No store type was specified for the decimal property 'Peso' on entity type 'Intento'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-02-04 05:27:38.526 -05:00 [WRN] The ASP.NET Core developer certificate is not trusted. For information about trusting the ASP.NET Core developer certificate, see https://aka.ms/aspnet/https-trust-dev-cert.
+2025-02-04 05:27:46.426 -05:00 [ERR] Failed executing DbCommand (28ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Codigo] AS [Pais], [d].[Nombre], COALESCE((
+    SELECT MAX([i].[Peso])
+    FROM [Intentos] AS [i]
+    INNER JOIN [Modalidades] AS [m] ON [i].[ModalidadId] = [m].[ModalidadId]
+    WHERE [d].[DeportistaId] = [i].[DeportistaId] AND [m].[NombreIntento] = N'Arranque' AND [i].[Exitoso] = CAST(1 AS bit)), 0.0) AS [Arranque], COALESCE((
+    SELECT MAX([i0].[Peso])
+    FROM [Intentos] AS [i0]
+    INNER JOIN [Modalidades] AS [m0] ON [i0].[ModalidadId] = [m0].[ModalidadId]
+    WHERE [d].[DeportistaId] = [i0].[DeportistaId] AND [m0].[NombreIntento] = N'Envion' AND [i0].[Exitoso] = CAST(1 AS bit)), 0.0) AS [Envion]
+FROM [Deportistas] AS [d]
+INNER JOIN [Paises] AS [p] ON [d].[PaisId] = [p].[PaisId]
+2025-02-04 05:27:46.467 -05:00 [ERR] An exception occurred while iterating over the results of a query for context type 'VenegasCristian.Data.HalterofiliaDbContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:8dac2d70-fdf2-4323-b800-7866ef76a8d3
+Error Number:207,State:1,Class:16
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:8dac2d70-fdf2-4323-b800-7866ef76a8d3
+Error Number:207,State:1,Class:16
+2025-02-04 05:27:46.531 -05:00 [ERR] Error al obtener resultados de halterofilia
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at VenegasCristian.Service.HalterofiliaService.ObtenerResultados(Int32 pagina, Int32 elementosPorPagina) in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Service\HalterofiliaService.cs:line 50
+ClientConnectionId:8dac2d70-fdf2-4323-b800-7866ef76a8d3
+Error Number:207,State:1,Class:16
+2025-02-04 05:27:46.614 -05:00 [ERR] Error al obtener resultados
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at VenegasCristian.Service.HalterofiliaService.ObtenerResultados(Int32 pagina, Int32 elementosPorPagina) in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Service\HalterofiliaService.cs:line 50
+   at VenegasCristian.Controllers.HalterofiliaController.ObtenerResultados(Int32 pagina, Int32 elementosPorPagina) in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Controllers\HalterofiliaController.cs:line 27
+ClientConnectionId:8dac2d70-fdf2-4323-b800-7866ef76a8d3
+Error Number:207,State:1,Class:16
+2025-02-04 05:27:57.456 -05:00 [ERR] Failed executing DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Nombre] AS [Deportista], [p].[Codigo] AS [Pais], COUNT(*) AS [NumeroIntentos]
+FROM [Intentos] AS [i]
+INNER JOIN [Deportistas] AS [d] ON [i].[DeportistaId] = [d].[DeportistaId]
+INNER JOIN [Paises] AS [p] ON [d].[PaisId] = [p].[PaisId]
+INNER JOIN [Modalidades] AS [m] ON [i].[ModalidadId] = [m].[ModalidadId]
+GROUP BY [d].[Nombre], [p].[Codigo], [m].[NombreIntento]
+ORDER BY [d].[Nombre]
+2025-02-04 05:27:57.459 -05:00 [ERR] An exception occurred while iterating over the results of a query for context type 'VenegasCristian.Data.HalterofiliaDbContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:8dac2d70-fdf2-4323-b800-7866ef76a8d3
+Error Number:207,State:1,Class:16
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:8dac2d70-fdf2-4323-b800-7866ef76a8d3
+Error Number:207,State:1,Class:16
+2025-02-04 05:27:57.495 -05:00 [ERR] Error al obtener intentos por deportista
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at VenegasCristian.Service.HalterofiliaService.ObtenerIntentosPorDeportista() in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Service\HalterofiliaService.cs:line 23
+ClientConnectionId:8dac2d70-fdf2-4323-b800-7866ef76a8d3
+Error Number:207,State:1,Class:16
+2025-02-04 05:27:57.561 -05:00 [ERR] Error al obtener intentos por deportista
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at VenegasCristian.Service.HalterofiliaService.ObtenerIntentosPorDeportista() in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Service\HalterofiliaService.cs:line 23
+   at VenegasCristian.Controllers.HalterofiliaController.ObtenerIntentosPorDeportista() in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Controllers\HalterofiliaController.cs:line 42
+ClientConnectionId:8dac2d70-fdf2-4323-b800-7866ef76a8d3
+Error Number:207,State:1,Class:16
+2025-02-04 05:40:27.341 -05:00 [WRN] No store type was specified for the decimal property 'Peso' on entity type 'Intento'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-02-04 05:40:28.939 -05:00 [WRN] The ASP.NET Core developer certificate is not trusted. For information about trusting the ASP.NET Core developer certificate, see https://aka.ms/aspnet/https-trust-dev-cert.
+2025-02-04 05:40:38.624 -05:00 [ERR] Failed executing DbCommand (40ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Codigo] AS [Pais], [d].[Nombre], COALESCE((
+    SELECT MAX([i].[Peso])
+    FROM [Intentos] AS [i]
+    INNER JOIN [Modalidades] AS [m] ON [i].[ModalidadId] = [m].[ModalidadId]
+    WHERE [d].[DeportistaId] = [i].[DeportistaId] AND [m].[NombreIntento] = N'Arranque' AND [i].[Exitoso] = CAST(1 AS bit)), 0.0) AS [Arranque], COALESCE((
+    SELECT MAX([i0].[Peso])
+    FROM [Intentos] AS [i0]
+    INNER JOIN [Modalidades] AS [m0] ON [i0].[ModalidadId] = [m0].[ModalidadId]
+    WHERE [d].[DeportistaId] = [i0].[DeportistaId] AND [m0].[NombreIntento] = N'Envion' AND [i0].[Exitoso] = CAST(1 AS bit)), 0.0) AS [Envion]
+FROM [Deportistas] AS [d]
+INNER JOIN [Paises] AS [p] ON [d].[PaisId] = [p].[PaisId]
+2025-02-04 05:40:38.656 -05:00 [ERR] An exception occurred while iterating over the results of a query for context type 'VenegasCristian.Data.HalterofiliaDbContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:143fe877-4aca-44a1-91b4-44eb2fd18d79
+Error Number:207,State:1,Class:16
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:143fe877-4aca-44a1-91b4-44eb2fd18d79
+Error Number:207,State:1,Class:16
+2025-02-04 05:40:38.706 -05:00 [ERR] Error al obtener resultados de halterofilia
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at VenegasCristian.Service.HalterofiliaService.ObtenerResultados(Int32 pagina, Int32 elementosPorPagina) in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Service\HalterofiliaService.cs:line 50
+ClientConnectionId:143fe877-4aca-44a1-91b4-44eb2fd18d79
+Error Number:207,State:1,Class:16
+2025-02-04 05:40:38.778 -05:00 [ERR] Error al obtener resultados
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at VenegasCristian.Service.HalterofiliaService.ObtenerResultados(Int32 pagina, Int32 elementosPorPagina) in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Service\HalterofiliaService.cs:line 50
+   at VenegasCristian.Controllers.HalterofiliaController.ObtenerResultados(Int32 pagina, Int32 elementosPorPagina) in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Controllers\HalterofiliaController.cs:line 27
+ClientConnectionId:143fe877-4aca-44a1-91b4-44eb2fd18d79
+Error Number:207,State:1,Class:16
+2025-02-04 05:42:34.909 -05:00 [WRN] No store type was specified for the decimal property 'Peso' on entity type 'Intento'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-02-04 05:42:35.598 -05:00 [WRN] The ASP.NET Core developer certificate is not trusted. For information about trusting the ASP.NET Core developer certificate, see https://aka.ms/aspnet/https-trust-dev-cert.
+2025-02-04 05:43:07.035 -05:00 [ERR] Failed executing DbCommand (38ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Codigo] AS [Pais], [d].[Nombre], COALESCE((
+    SELECT MAX([i].[Peso])
+    FROM [Intentos] AS [i]
+    INNER JOIN [Modalidades] AS [m] ON [i].[ModalidadId] = [m].[ModalidadId]
+    WHERE [d].[DeportistaId] = [i].[DeportistaId] AND [m].[NombreIntento] = N'Arranque' AND [i].[Exitoso] = CAST(1 AS bit)), 0.0) AS [Arranque], COALESCE((
+    SELECT MAX([i0].[Peso])
+    FROM [Intentos] AS [i0]
+    INNER JOIN [Modalidades] AS [m0] ON [i0].[ModalidadId] = [m0].[ModalidadId]
+    WHERE [d].[DeportistaId] = [i0].[DeportistaId] AND [m0].[NombreIntento] = N'Envion' AND [i0].[Exitoso] = CAST(1 AS bit)), 0.0) AS [Envion]
+FROM [Deportistas] AS [d]
+INNER JOIN [Paises] AS [p] ON [d].[PaisId] = [p].[PaisId]
+2025-02-04 05:43:07.068 -05:00 [ERR] An exception occurred while iterating over the results of a query for context type 'VenegasCristian.Data.HalterofiliaDbContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:93847135-ef2c-4f4a-9c59-19d76c9be7b4
+Error Number:207,State:1,Class:16
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:93847135-ef2c-4f4a-9c59-19d76c9be7b4
+Error Number:207,State:1,Class:16
+2025-02-04 05:43:07.128 -05:00 [ERR] Error al obtener resultados de halterofilia
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at VenegasCristian.Service.HalterofiliaService.ObtenerResultados(Int32 pagina, Int32 elementosPorPagina) in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Service\HalterofiliaService.cs:line 50
+ClientConnectionId:93847135-ef2c-4f4a-9c59-19d76c9be7b4
+Error Number:207,State:1,Class:16
+2025-02-04 05:43:07.195 -05:00 [ERR] Error al obtener resultados
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at VenegasCristian.Service.HalterofiliaService.ObtenerResultados(Int32 pagina, Int32 elementosPorPagina) in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Service\HalterofiliaService.cs:line 50
+   at VenegasCristian.Controllers.HalterofiliaController.ObtenerResultados(Int32 pagina, Int32 elementosPorPagina) in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Controllers\HalterofiliaController.cs:line 27
+ClientConnectionId:93847135-ef2c-4f4a-9c59-19d76c9be7b4
+Error Number:207,State:1,Class:16
+2025-02-04 05:43:30.093 -05:00 [ERR] Failed executing DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Nombre] AS [Deportista], [p].[Codigo] AS [Pais], COUNT(*) AS [NumeroIntentos]
+FROM [Intentos] AS [i]
+INNER JOIN [Deportistas] AS [d] ON [i].[DeportistaId] = [d].[DeportistaId]
+INNER JOIN [Paises] AS [p] ON [d].[PaisId] = [p].[PaisId]
+INNER JOIN [Modalidades] AS [m] ON [i].[ModalidadId] = [m].[ModalidadId]
+GROUP BY [d].[Nombre], [p].[Codigo], [m].[NombreIntento]
+ORDER BY [d].[Nombre]
+2025-02-04 05:43:30.095 -05:00 [ERR] An exception occurred while iterating over the results of a query for context type 'VenegasCristian.Data.HalterofiliaDbContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:93847135-ef2c-4f4a-9c59-19d76c9be7b4
+Error Number:207,State:1,Class:16
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:93847135-ef2c-4f4a-9c59-19d76c9be7b4
+Error Number:207,State:1,Class:16
+2025-02-04 05:43:30.132 -05:00 [ERR] Error al obtener intentos por deportista
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at VenegasCristian.Service.HalterofiliaService.ObtenerIntentosPorDeportista() in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Service\HalterofiliaService.cs:line 23
+ClientConnectionId:93847135-ef2c-4f4a-9c59-19d76c9be7b4
+Error Number:207,State:1,Class:16
+2025-02-04 05:43:30.195 -05:00 [ERR] Error al obtener intentos por deportista
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at VenegasCristian.Service.HalterofiliaService.ObtenerIntentosPorDeportista() in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Service\HalterofiliaService.cs:line 23
+   at VenegasCristian.Controllers.HalterofiliaController.ObtenerIntentosPorDeportista() in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Controllers\HalterofiliaController.cs:line 42
+ClientConnectionId:93847135-ef2c-4f4a-9c59-19d76c9be7b4
+Error Number:207,State:1,Class:16
+2025-02-04 05:48:52.310 -05:00 [WRN] No store type was specified for the decimal property 'Peso' on entity type 'Intento'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-02-04 05:48:53.105 -05:00 [WRN] The ASP.NET Core developer certificate is not trusted. For information about trusting the ASP.NET Core developer certificate, see https://aka.ms/aspnet/https-trust-dev-cert.
+2025-02-04 05:55:24.729 -05:00 [ERR] Failed executing DbCommand (37ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Codigo] AS [Pais], [d].[Nombre], COALESCE((
+    SELECT MAX([i].[Peso])
+    FROM [Intentos] AS [i]
+    INNER JOIN [Modalidades] AS [m] ON [i].[ModalidadId] = [m].[ModalidadId]
+    WHERE [d].[DeportistaId] = [i].[DeportistaId] AND [m].[NombreIntento] = N'Arranque' AND [i].[Exitoso] = CAST(1 AS bit)), 0.0) AS [Arranque], COALESCE((
+    SELECT MAX([i0].[Peso])
+    FROM [Intentos] AS [i0]
+    INNER JOIN [Modalidades] AS [m0] ON [i0].[ModalidadId] = [m0].[ModalidadId]
+    WHERE [d].[DeportistaId] = [i0].[DeportistaId] AND [m0].[NombreIntento] = N'Envion' AND [i0].[Exitoso] = CAST(1 AS bit)), 0.0) AS [Envion]
+FROM [Deportistas] AS [d]
+INNER JOIN [Paises] AS [p] ON [d].[PaisId] = [p].[PaisId]
+2025-02-04 05:55:24.769 -05:00 [ERR] An exception occurred while iterating over the results of a query for context type 'VenegasCristian.Data.HalterofiliaDbContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:d33151da-3944-47c7-870d-f7dd551c3d10
+Error Number:207,State:1,Class:16
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:d33151da-3944-47c7-870d-f7dd551c3d10
+Error Number:207,State:1,Class:16
+2025-02-04 05:55:24.823 -05:00 [ERR] Error al obtener resultados de halterofilia
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at VenegasCristian.Service.HalterofiliaService.ObtenerResultados(Int32 pagina, Int32 elementosPorPagina) in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Service\HalterofiliaService.cs:line 50
+ClientConnectionId:d33151da-3944-47c7-870d-f7dd551c3d10
+Error Number:207,State:1,Class:16
+2025-02-04 05:55:24.895 -05:00 [ERR] Error al obtener resultados
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at VenegasCristian.Service.HalterofiliaService.ObtenerResultados(Int32 pagina, Int32 elementosPorPagina) in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Service\HalterofiliaService.cs:line 50
+   at VenegasCristian.Controllers.HalterofiliaController.ObtenerResultados(Int32 pagina, Int32 elementosPorPagina) in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Controllers\HalterofiliaController.cs:line 27
+ClientConnectionId:d33151da-3944-47c7-870d-f7dd551c3d10
+Error Number:207,State:1,Class:16
+2025-02-04 05:55:35.276 -05:00 [ERR] Failed executing DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Nombre] AS [Deportista], [p].[Codigo] AS [Pais], COUNT(*) AS [NumeroIntentos]
+FROM [Intentos] AS [i]
+INNER JOIN [Deportistas] AS [d] ON [i].[DeportistaId] = [d].[DeportistaId]
+INNER JOIN [Paises] AS [p] ON [d].[PaisId] = [p].[PaisId]
+INNER JOIN [Modalidades] AS [m] ON [i].[ModalidadId] = [m].[ModalidadId]
+GROUP BY [d].[Nombre], [p].[Codigo], [m].[NombreIntento]
+ORDER BY [d].[Nombre]
+2025-02-04 05:55:35.278 -05:00 [ERR] An exception occurred while iterating over the results of a query for context type 'VenegasCristian.Data.HalterofiliaDbContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:d33151da-3944-47c7-870d-f7dd551c3d10
+Error Number:207,State:1,Class:16
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:d33151da-3944-47c7-870d-f7dd551c3d10
+Error Number:207,State:1,Class:16
+2025-02-04 05:55:35.316 -05:00 [ERR] Error al obtener intentos por deportista
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at VenegasCristian.Service.HalterofiliaService.ObtenerIntentosPorDeportista() in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Service\HalterofiliaService.cs:line 23
+ClientConnectionId:d33151da-3944-47c7-870d-f7dd551c3d10
+Error Number:207,State:1,Class:16
+2025-02-04 05:55:35.396 -05:00 [ERR] Error al obtener intentos por deportista
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'NombreIntento'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at VenegasCristian.Service.HalterofiliaService.ObtenerIntentosPorDeportista() in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Service\HalterofiliaService.cs:line 23
+   at VenegasCristian.Controllers.HalterofiliaController.ObtenerIntentosPorDeportista() in C:\Users\TAYZ ALVAREZ\source\repos\VenegasCristian\VenegasCristian\Controllers\HalterofiliaController.cs:line 42
+ClientConnectionId:d33151da-3944-47c7-870d-f7dd551c3d10
+Error Number:207,State:1,Class:16
+2025-02-04 05:59:51.411 -05:00 [WRN] No store type was specified for the decimal property 'Peso' on entity type 'Intento'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-02-04 05:59:52.110 -05:00 [WRN] The ASP.NET Core developer certificate is not trusted. For information about trusting the ASP.NET Core developer certificate, see https://aka.ms/aspnet/https-trust-dev-cert.
+2025-02-04 20:46:33.773 -05:00 [WRN] No store type was specified for the decimal property 'Peso' on entity type 'Intento'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-02-04 20:46:34.650 -05:00 [WRN] The ASP.NET Core developer certificate is not trusted. For information about trusting the ASP.NET Core developer certificate, see https://aka.ms/aspnet/https-trust-dev-cert.
+2025-02-04 20:50:34.697 -05:00 [WRN] No store type was specified for the decimal property 'Peso' on entity type 'Intento'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-02-04 20:50:35.312 -05:00 [WRN] The ASP.NET Core developer certificate is not trusted. For information about trusting the ASP.NET Core developer certificate, see https://aka.ms/aspnet/https-trust-dev-cert.
+2025-02-04 20:53:46.352 -05:00 [INF] Intento registrado para deportista 4 en modalidad 1
